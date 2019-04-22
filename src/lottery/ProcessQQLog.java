@@ -14,9 +14,9 @@ public class ProcessQQLog
 	private File file;
 	private BufferedReader br;
 	private String regex = "[0-9]{4}-[0-9]{2}-[0-9]{2}$";
-	private HashMap<String, List<Record>> idRecordMap = new HashMap<String, List<Record>>();//��Ϊqq�ţ�ֵΪ��¼�б�
-	private HashMap<String, String> idNameMap = new HashMap<>(); //��Ϊqq�ţ�ֵΪqq����
-	private HashMap<String, List<Record>> idDrawMap = new HashMap<String, List<Record>>();//qq��-���齱ʱ���¼
+	private HashMap<String, List<Record>> idRecordMap = new HashMap<String, List<Record>>();//qq号->记录列表
+	private HashMap<String, String> idNameMap = new HashMap<>(); //QQ号->QQ昵称
+	private HashMap<String, List<Record>> idDrawMap = new HashMap<String, List<Record>>();//QQ号->抽奖记录
 	private HashMap<String, List<Record>> tempMap = new HashMap<String, List<Record>>();
 	private List<String> userList = new ArrayList<String>();
 	public ProcessQQLog(String url)
@@ -24,17 +24,17 @@ public class ProcessQQLog
 		this.url = url;
 		this.work();
 	}
-	//����qq�Ż�ȡqq��
+	//根据qq号获取qq名
 	public String getQQName(String qqNumber)
 	{
 		return idNameMap.get(qqNumber);
 	}
-	//��ȡ�����û�
+	//获取所有用户
 	public HashMap<String, String> getAllUser()
 	{
 		return idNameMap;
 	}
-	//��ȡ�����û�id��QQ�ţ�
+	//获取所有用户QQ号
 	public List<String> getAllUserId()
 	{
 		Iterator iter = idDrawMap.entrySet().iterator();
@@ -45,12 +45,12 @@ public class ProcessQQLog
 		}
 		return userList;
 	}
-	//����qq�Ż�ȡ���������¼
+	//获取所有聊天记录
  	public HashMap<String, List<Record>>getRecordList()
 	{
 		return idRecordMap;
 	}
-	//���ݸ����������ز���齱�б�
+	//根据条件选择符合的聊天记录
 	public HashMap<String, List<Record>> getDrawList(Date beg, Date end, String tag)
 	{
 		this.filter(tag);
