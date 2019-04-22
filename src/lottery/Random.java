@@ -5,7 +5,7 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 public class Random {
-	
+	//LCG算法的实现
 	public final AtomicLong seed=new AtomicLong();
 	public final static long C = 1;
 	public final static long A = 48271;
